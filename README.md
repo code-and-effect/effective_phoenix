@@ -1,20 +1,54 @@
-# EffectivePhoenix
+# Effective Phoenix
 
-To start your Phoenix server:
+This is a phoenix starter website.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+## New App Setup
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+mix phx.new effective_phoenix
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+cd effective_phoenix
+mix ecto.create
 
-## Learn more
+### Javascript
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+cd assets
+npm install --save jquery bootstrap popper.js
+
+In assets/js/app.js:
+
+import "bootstrap";
+
+import $ from "jquery";
+window.jQuery = $;
+window.$ = $;
+
+### CSS
+
+cd assets
+npm install --save-dev node-sass sass-loader
+
+mv css/app.css css/app.scss
+Update app.js, replace app.css with app.scss
+
+In assets/webpack.config.js:
+
+{
+  test: /\.s?css$/,
+  use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+}
+
+In assets/css/_bootstrap.scss:
+
+$primary: purple;
+
+In assets/css/app.scss:
+
+@import "bootstrap";
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+
+
+## Commands
+
+mix phx.server
+iex -S mix phx.server
